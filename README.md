@@ -10,7 +10,7 @@ _Lambda Exception Helper_
 
 leh makes it easier to find unhandled exception log entries in [AWS Lambda](https://aws.amazon.com/lambda/) logs.
 
-AWS Lambda logs both `stdout` and `stderr` to the same stream in [CloudWatch](https://aws.amazon.com/cloudwatch/). This can make it difficult to find your error logs amongst all other `stdout` entries. If you don't view your logs immediately after an error is thrown, it gets even harder due to new log streams starting.
+AWS Lambda logs both `stdout` and `stderr` to the same stream in [CloudWatch](https://aws.amazon.com/cloudwatch/). This can make it difficult to find your error logs amongst all other `stdout`. If you don't view your logs immediately after an error is thrown, it gets even harder due to new log streams starting.
 
 leh makes this process easier by adding a message right before all unhandled exception logs. You can then search your logs with the predetermined message and find your exceptions faster.
 
@@ -32,7 +32,7 @@ $ python setup.py install  # you may need sudo depending on your python installa
 
 ## Usage
 
-You can start using leh with just 4 lines to your Handler:
+You can start using leh by adding just 4 lines to your Handler:
 
 ```
 import sys
@@ -47,11 +47,11 @@ You can customize your message, as well as setup a Lambda function, by passing p
 
 | Parameter       | Required                         |  Type   | Description                                                   | Default                  |
 |-----------------|----------------------------------|---------|---------------------------------------------------------------|--------------------------|
-| `Message`       | No                               | String  | Custom message to prepend to unhandled exception logs.        | leh excepthook executed: |
-| `ExecuteLambda` | No                               | Boolean | Enable or Disable Lambda execution on error.                  | `False`                  |
-| `FunctionName`  | Yes if `ExecuteLambda` is `True` | String  | Name of the function to execute if `ExecuteLambda` is `True`. | None                     |
-| `AWSKey`        | No                               | String  | AWS Access Key for invoking a Lambda function.                | None                     |
-| `AWSSecret`     | No                               | String  | AWS Secret Key for invoking a Lambda function.                | None                     |
+| `Message`       | No                               | String  | Custom message to prepend to unhandled exception logs.        | `leh excepthook executed:` |
+| `ExecuteLambda` | No                               | Boolean | Enable or Disable Lambda execution on error.                  | `False`                    |
+| `FunctionName`  | Yes if `ExecuteLambda` is `True` | String  | Name of the function to execute if `ExecuteLambda` is `True`. | None                       |
+| `AWSKey`        | No                               | String  | AWS Access Key for invoking a Lambda function.                | None                       |
+| `AWSSecret`     | No                               | String  | AWS Secret Key for invoking a Lambda function.                | None                       |
 
 _I always recommend using [IAM Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) instead of passing in AWS credentials_
 
@@ -69,7 +69,7 @@ Although the `Initialize()` function usually completes in under 100 milliseconds
 
 _WARNING: If you do not call the `Initialize()` function, you MUST define a `LEH_MESSAGE` environment variable._
 
-If you are only appending a custom message to your exception logs there is no delay in exiting. However, if you are executing a Lambda function there will be a slight delay between when the error is thrown and when the error is logged and the program is exited. This delay is the time it takes to execute the Lambda function. We always call the Lambda function asynchronously, so there is never a wait for a response.
+If you are only appending a custom message to your exception logs there is no delay in exiting. However, if you are executing a Lambda function there will be a slight delay between when the error is thrown and when the error is logged and the program is exited. This delay is the time it takes to execute the Lambda function. leh always calls the Lambda function asynchronously, so there is never a wait for a response.
 
 ## Examples
 
