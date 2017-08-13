@@ -1,5 +1,9 @@
 # leh
 
+![](https://img.shields.io/pypi/v/leh.svg)
+![](https://img.shields.io/circleci/project/github/gkrizek/leh.svg)
+![](https://img.shields.io/pypi/l/leh.svg)
+
 ## About
 
 _Lambda Exception Helper_
