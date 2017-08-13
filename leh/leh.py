@@ -1,8 +1,9 @@
 import boto3
 import os
+import json
 from traceback import format_exception
 
-def ExecuteLambda(Function):
+def ExecuteLambda(Function, Payload):
     if 'LEH_AWS_KEY' in os.environ and 'LEH_AWS_SECRET' in os.environ:
         awslambda = boto3.client(
             'lambda',
@@ -12,13 +13,14 @@ def ExecuteLambda(Function):
     else:
         awslambda = boto3.client('lambda')
 
-    response = awslambda.invoke_async(
+    response = awslambda.invoke(
         FunctionName=Function,
-        InvokeArgs=b'bytes'|file
+        InvocationType='Event',
+        Payload=json.dumps(Payload)
     )
     return response
 
-    
+
 def Initalize():
 
 
