@@ -74,7 +74,8 @@ are:
 | ``AWSSecret``     | No                                   | String  | AWS Secret Key for invoking a Lambda function.         | None                         |
 +-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
 
-*I always recommend using `IAM Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__*
+I always recommend using `IAM
+Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__
 
 Payload
 ^^^^^^^
