@@ -55,6 +55,22 @@ You can customize your message, as well as setup a Lambda function, by passing p
 
 _I always recommend using [IAM Roles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) instead of passing in AWS credentials_
 
+#### Payload
+
+When invoking a Lambda function, everything you need to know is included in the payload.
+
+_Example Payload:_
+
+```
+{
+  "function": "MyFunction",
+  "region": "us-west-2",
+  "origin-log-group": "/aws/lambda/myfunction",
+  "origin-log-stream": "",
+  "exception": "Traceback (most recent call last):\n  File "test.py", line 22, in <module>    print(list[1])\nIndexError: list index out of range"
+}
+```
+
 #### Performance
 
 Although the `Initialize()` function usually completes in under 100 milliseconds, it's possible to not execute it and use environment variables instead. You can define the the same parameters of the `Initialize()` function using environment variables. The corresponding parameter names to environment variable names as follows:
