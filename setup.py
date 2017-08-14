@@ -14,7 +14,7 @@ setup(
     author_email="graham@krizek.io",
     url="https://github.com/gkrizek/leh",
     license="MIT",
-    packages="leh",
+    packages=["leh"],
     install_requires=[
         "boto3"
     ],
