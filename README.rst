@@ -75,7 +75,7 @@ are:
 +-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
 
 I always recommend using `IAM
-Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__
+Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__ instead of directly passing credentials.
 
 Payload
 ^^^^^^^
