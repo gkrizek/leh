@@ -1,1 +1,1 @@
-from leh import Initialize, Hook
+from leh.main import Initialize, Hook
