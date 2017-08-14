@@ -49,7 +49,7 @@ def Initalize(
         )
 
     if (ExecuteLambda in [True, 'True', 'true', 1, '1'] and
-        FunctionName is None):
+            FunctionName is None):
         raise Exception(
             "'ExecuteLambda' set to True but 'FunctionName' is not defined"
         )
@@ -63,11 +63,11 @@ def Initalize(
             "'AWSSecret' defined but not 'AWSKey'"
         )
 
-    #Initialize
+    # Initialize
     os.environ['LEH_MESSAGE'] = Message
 
     if (ExecuteLambda is not False and
-        ExecuteLambda in [True, 'True', 'true', 1, '1']):
+            ExecuteLambda in [True, 'True', 'true', 1, '1']):
         os.environ['LEH_EXECUTE_LAMBDA'] = "True"
 
     if FunctionName is not None:
@@ -89,8 +89,9 @@ def Hook(type, value, traceback):
         raise Exception("'LEH_MESSAGE' is not defined.")
     lines = format_exception(type, value, traceback)
     exception = ''.join(lines)
+    true_boolean = [True, 'True', 'true', 1, '1']
     if ('LEH_EXECUTE_LAMBDA' in os.environ and
-        os.environ['LEH_EXECUTE_LAMBDA'] in [True, 'True', 'true', 1, '1']):
+            os.environ['LEH_EXECUTE_LAMBDA'] in true_boolean):
         if 'LEH_FUNCTION_NAME' in os.environ:
             function_name = os.environ['LEH_FUNCTION_NAME']
             ExecuteLambda(
