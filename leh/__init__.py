@@ -1,3 +1,4 @@
 # Author: Graham Krizek <graham@krizek.io>
 from leh.main import Initialize, Hook
-__verison__ = "0.1.1"
+
+__version__ = "0.1.1"
