@@ -7,7 +7,7 @@ def readme():
 
 setup(
     name="leh",
-    version="0.1.0",
+    version="0.1.1",
     description="Lambda Exception Helper",
     long_description=readme(),
     author="Graham Krizek",
