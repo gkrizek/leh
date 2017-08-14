@@ -66,7 +66,7 @@ _Example Payload:_
   "function": "MyFunction",
   "region": "us-west-2",
   "origin-log-group": "/aws/lambda/myfunction",
-  "origin-log-stream": "",
+  "origin-log-stream": "f407a393-50d2-410a-a9c7-45a6a04e506e",
   "exception": "Traceback (most recent call last):\n  File "test.py", line 22, in <module>    print(list[1])\nIndexError: list index out of range"
 }
 ```
