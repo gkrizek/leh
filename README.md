@@ -32,13 +32,11 @@ $ python setup.py install  # you may need sudo depending on your python installa
 
 ## Usage
 
-You can start using leh by adding just 4 lines to your Handler:
+You can start using leh by adding just 2 lines to your Handler:
 
 ```
-import sys
 import leh
 leh.Initialize()
-sys.excepthook = leh.Hook
 ```
 
 This will add a default message of `"leh excepthook executed:"` just before your unhandled exception log.
@@ -73,6 +71,10 @@ _Example Payload:_
 
 #### Performance
 
+If you are only appending a custom message to your exception logs there is no delay in exiting. However, if you are executing a Lambda function there will be a slight delay between when the error is thrown and when the error is logged and the program is exited. This delay is the time it takes to execute the Lambda function. leh always calls the Lambda function asynchronously, so there is never a wait for a response.
+
+#### Environment Variables
+
 Although the `Initialize()` function usually completes in under 100 milliseconds, it's possible to not execute it and use environment variables instead. You can define the the same parameters of the `Initialize()` function using environment variables. The corresponding parameter names to environment variable names as follows:
 
 | Parameter Name  | Environment Variable Name |
@@ -83,40 +85,43 @@ Although the `Initialize()` function usually completes in under 100 milliseconds
 | `AWSKey`        | `LEH_AWS_KEY`             |
 | `AWSSecret`     | `LEH_AWS_SECRET`          |
 
-_WARNING: If you do not call the `Initialize()` function, you MUST define a `LEH_MESSAGE` environment variable._
+**Warning:**
 
-If you are only appending a custom message to your exception logs there is no delay in exiting. However, if you are executing a Lambda function there will be a slight delay between when the error is thrown and when the error is logged and the program is exited. This delay is the time it takes to execute the Lambda function. leh always calls the Lambda function asynchronously, so there is never a wait for a response.
+- If you do not call the `Initialize()` function, you MUST define a `LEH_MESSAGE` environment variable.
+- If you do not call the `Initialize()` function and choose to use environment variables instead, you must manually set the `sys.excepthook` in your Handler:
+
+```
+import sys
+import leh
+sys.excepthook = leh.Hook
+```
+
 
 ## Examples
 
 Create a custom message:
 
 ```
-import sys
 import leh
 leh.Initialize(
     Message="My Custom Hook Message"
 )
-sys.excepthook = leh.Hook
 ```
 
 
 Execute a Lambda function:
 
 ```
-import sys
 import leh
 leh.Initialize(
     ExecuteLambda=True,
     FunctionName="error-log-function"
 )
-sys.excepthook = leh.Hook
 ```
 
 Execute a Lambda function with specific keys:
 
 ```
-import sys
 import leh
 leh.Initialize(
     ExecuteLambda=True,
@@ -125,5 +130,4 @@ leh.Initialize(
     AWSSecret="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
 )
-sys.excepthook = leh.Hook
 ```

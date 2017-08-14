@@ -1,6 +1,7 @@
 import boto3
 import os
 import json
+import sys
 from traceback import format_exception
 
 
@@ -32,6 +33,32 @@ def ExecuteLambda(Function, Traceback):
         Payload=json.dumps(payload)
     )
     return response
+
+
+def Hook(type, value, traceback):
+    if 'LEH_MESSAGE' in os.environ:
+        message = os.environ['LEH_MESSAGE']
+    else:
+        raise Exception("'LEH_MESSAGE' is not defined.")
+    lines = format_exception(type, value, traceback)
+    exception = ''.join(lines)
+    true_boolean = [True, 'True', 'true', 1, '1']
+    if ('LEH_EXECUTE_LAMBDA' in os.environ and
+            os.environ['LEH_EXECUTE_LAMBDA'] in true_boolean):
+        if 'LEH_FUNCTION_NAME' in os.environ:
+            function_name = os.environ['LEH_FUNCTION_NAME']
+            ExecuteLambda(
+                Function=function_name,
+                Traceback=exception
+            )
+        else:
+            error = ("'LEH_EXECUTE_LAMBDA' set to 'True'" +
+                     " but 'LEH_FUNCTION_NAME' not defined.")
+            raise Exception(
+                error
+            )
+    print(message)
+    print(exception)
 
 
 def Initialize(
@@ -79,30 +106,10 @@ def Initialize(
     if AWSSecret is not None:
         os.environment['LEH_AWS_SECRET'] = AWSSecret
 
-    return 'leh successfully initialized'
+    # Set the excepthook
+    sys.excepthook = Hook
 
-
-def Hook(type, value, traceback):
-    if 'LEH_MESSAGE' in os.environ:
-        message = os.environ['LEH_MESSAGE']
-    else:
-        raise Exception("'LEH_MESSAGE' is not defined.")
-    lines = format_exception(type, value, traceback)
-    exception = ''.join(lines)
-    true_boolean = [True, 'True', 'true', 1, '1']
-    if ('LEH_EXECUTE_LAMBDA' in os.environ and
-            os.environ['LEH_EXECUTE_LAMBDA'] in true_boolean):
-        if 'LEH_FUNCTION_NAME' in os.environ:
-            function_name = os.environ['LEH_FUNCTION_NAME']
-            ExecuteLambda(
-                Function=function_name,
-                Traceback=exception
-            )
-        else:
-            error = ("'LEH_EXECUTE_LAMBDA' set to 'True'" +
-                     " but 'LEH_FUNCTION_NAME' not defined.")
-            raise Exception(
-                error
-            )
-    print(message)
-    print(exception)
+    return {
+        "status": "ok",
+        "message": "leh successfully initialized"
+    }
