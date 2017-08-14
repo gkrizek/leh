@@ -101,10 +101,10 @@ def Initialize(
         os.environ['LEH_FUNCTION_NAME'] = FunctionName
 
     if AWSKey is not None:
-        os.environment['LEH_AWS_KEY'] = AWSKey
+        os.environ['LEH_AWS_KEY'] = AWSKey
 
     if AWSSecret is not None:
-        os.environment['LEH_AWS_SECRET'] = AWSSecret
+        os.environ['LEH_AWS_SECRET'] = AWSSecret
 
     # Set the excepthook
     sys.excepthook = Hook
