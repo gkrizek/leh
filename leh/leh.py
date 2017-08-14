@@ -3,6 +3,7 @@ import os
 import json
 from traceback import format_exception
 
+
 def ExecuteLambda(Function, Payload):
     if 'LEH_AWS_KEY' in os.environ and 'LEH_AWS_SECRET' in os.environ:
         awslambda = boto3.client(
@@ -21,12 +22,30 @@ def ExecuteLambda(Function, Payload):
     return response
 
 
-def Initalize():
+def Initalize(
+    Message="leh excepthook executed:",
+    ExecuteLambda=False,
+    FunctionName=None,
+    AWSKey=None,
+    AWSSecret=None
+):
 
 
 
 def Hook(type, value, traceback):
     message = os.environ['LEH_MESSAGE']
-    print(message)
     lines = format_exception(type, value, traceback)
-    print((''.join(lines))
+    exception = ''.join(lines)
+    if ('LEH_EXECUTE_LAMBDA' in os.environ and
+        os.environ['LEH_EXECUTE_LAMBDA'] in [True, 'True', 'true', 1, '1']):
+        if 'LEH_FUNCTION_NAME' in os.environ:
+            ExecuteLambda(
+                Function=function_name,
+                Traceback=exception
+            )
+        else:
+            raise Exception(
+                "ExecuteLambda set to 'True' but not FunctionName defined."
+            )
+    print(message)
+    print(exception)
