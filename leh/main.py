@@ -1,3 +1,5 @@
+# Author: Graham Krizek <graham@krizek.io>
+
 import boto3
 import os
 import json

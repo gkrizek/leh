@@ -1,5 +1,6 @@
 from setuptools import setup
 
+
 def readme():
     with open('README.rst') as f:
         return f.read()
@@ -16,10 +17,6 @@ setup(
     packages="leh",
     install_requires=[
         "boto3"
-    ],
-    classifiers=[
-      'Programming Language :: Python :: 2',
-      'Programming Language :: Python :: 3
     ],
     keywords="aws lambda unhandled exception logging error"
 )
