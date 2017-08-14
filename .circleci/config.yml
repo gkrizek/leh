@@ -10,7 +10,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            pip install pep8
+            sudo pip install pep8
 
       - run:
           name: run tests
