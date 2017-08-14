@@ -34,7 +34,7 @@ def ExecuteLambda(Function, Traceback):
     return response
 
 
-def Initalize(
+def Initialize(
     Message="leh excepthook executed:",
     ExecuteLambda=False,
     FunctionName=None,

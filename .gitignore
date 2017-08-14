@@ -43,3 +43,5 @@ nosetests.xml
 # Git
 *.diff
 *.patch
+
+test.py
