@@ -60,33 +60,21 @@ You can customize your message, as well as setup a Lambda function, by
 passing parameters to the ``Initialize()`` function. Possible parameters
 are:
 
-+----------+------------------+------+-------------------------------+--------------+
-| Paramete | Required         | Type | Description                   | Default      |
-| r        |                  |      |                               |              |
-+==========+==================+======+===============================+==============+
-| ``Messag | No               | Stri | Custom message to prepend to  | ``leh except |
-| e``      |                  | ng   | unhandled exception logs.     | hook execute |
-|          |                  |      |                               | d:``         |
-+----------+------------------+------+-------------------------------+--------------+
-| ``Execut | No               | Bool | Enable or Disable Lambda      | ``False``    |
-| eLambda` |                  | ean  | execution on error.           |              |
-| `        |                  |      |                               |              |
-+----------+------------------+------+-------------------------------+--------------+
-| ``Functi | Yes if           | Stri | Name of the function to       | None         |
-| onName`` | ``ExecuteLambda` | ng   | execute if ``ExecuteLambda``  |              |
-|          | `                |      | is ``True``.                  |              |
-|          | is ``True``      |      |                               |              |
-+----------+------------------+------+-------------------------------+--------------+
-| ``AWSKey | No               | Stri | AWS Access Key for invoking a | None         |
-| ``       |                  | ng   | Lambda function.              |              |
-+----------+------------------+------+-------------------------------+--------------+
-| ``AWSSec | No               | Stri | AWS Secret Key for invoking a | None         |
-| ret``    |                  | ng   | Lambda function.              |              |
-+----------+------------------+------+-------------------------------+--------------+
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
+| Parameter         | Required                             | Type    | Description                                            | Default                      |
++===================+======================================+=========+========================================================+==============================+
+| ``Message``       | No                                   | String  | Custom message to prepend to unhandled exception logs. | ``leh excepthook executed:`` |
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
+| ``ExecuteLambda`` | No                                   | Boolean | Enable or Disable Lambda execution on error.           | ``False``                    |
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
+| ``FunctionName``  | Yes if ``ExecuteLambda`` is ``True`` | String  | Name of the function to execute.                       | None                         |
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
+| ``AWSKey``        | No                                   | String  | AWS Access Key for invoking a Lambda function.         | None                         |
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
+| ``AWSSecret``     | No                                   | String  | AWS Secret Key for invoking a Lambda function.         | None                         |
++-------------------+--------------------------------------+---------+--------------------------------------------------------+------------------------------+
 
-*I always recommend using `IAM
-Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__
-instead of passing in AWS credentials*
+*I always recommend using `IAM Roles <http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html>`__*
 
 Payload
 ^^^^^^^
