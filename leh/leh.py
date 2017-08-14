@@ -83,7 +83,10 @@ def Initalize(
 
 
 def Hook(type, value, traceback):
-    message = os.environ['LEH_MESSAGE']
+    if 'LEH_MESSAGE' in os.environ:
+        message = os.environ['LEH_MESSAGE']
+    else:
+        raise Exception("'LEH_MESSAGE' is not defined.")
     lines = format_exception(type, value, traceback)
     exception = ''.join(lines)
     if ('LEH_EXECUTE_LAMBDA' in os.environ and
