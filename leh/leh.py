@@ -6,9 +6,9 @@ from traceback import format_exception
 
 def ExecuteLambda(Function, Traceback):
     if 'LEH_AWS_KEY' in os.environ and 'LEH_AWS_SECRET' not in os.environ:
-        raise Exception("'LEH_AWS_KEY' define but not 'LEH_AWS_SECRET'")
+        raise Exception("'LEH_AWS_KEY' defined but not 'LEH_AWS_SECRET'")
     elif 'LEH_AWS_KEY' not in os.environ and 'LEH_AWS_SECRET' in os.environ:
-        raise Exception("'LEH_AWS_SECRET' define but not 'LEH_AWS_KEY'")
+        raise Exception("'LEH_AWS_SECRET' defined but not 'LEH_AWS_KEY'")
     elif 'LEH_AWS_KEY' in os.environ and 'LEH_AWS_SECRET' in os.environ:
         awslambda = boto3.client(
             'lambda',
@@ -41,7 +41,45 @@ def Initalize(
     AWSKey=None,
     AWSSecret=None
 ):
+    # Validate Input
+    boolean = [True, 'True', 'true', 1, '1', False, 'False', 'false', 0, '0']
+    if ExecuteLambda not in boolean:
+        raise Exception(
+            "'ExecuteLambda' must be a boolean"
+        )
 
+    if (ExecuteLambda in [True, 'True', 'true', 1, '1'] and
+        FunctionName is None):
+        raise Exception(
+            "'ExecuteLambda' set to True but 'FunctionName' is not defined"
+        )
+
+    if AWSKey is not None and AWSSecret is None:
+        raise Exception(
+            "'AWSKey' defined but not 'AWSSecret'"
+        )
+    elif AWSKey is None and AWSSecret is not None:
+        raise Exception(
+            "'AWSSecret' defined but not 'AWSKey'"
+        )
+
+    #Initialize
+    os.environ['LEH_MESSAGE'] = Message
+
+    if (ExecuteLambda is not False and
+        ExecuteLambda in [True, 'True', 'true', 1, '1']):
+        os.environ['LEH_EXECUTE_LAMBDA'] = "True"
+
+    if FunctionName is not None:
+        os.environ['LEH_FUNCTION_NAME'] = FunctionName
+
+    if AWSKey is not None:
+        os.environment['LEH_AWS_KEY'] = AWSKey
+
+    if AWSSecret is not None:
+        os.environment['LEH_AWS_SECRET'] = AWSSecret
+
+    return 'leh successfully initialized'
 
 
 def Hook(type, value, traceback):
@@ -57,8 +95,10 @@ def Hook(type, value, traceback):
                 Traceback=exception
             )
         else:
+            error = ("'LEH_EXECUTE_LAMBDA' set to 'True'" +
+                     " but 'LEH_FUNCTION_NAME' not defined.")
             raise Exception(
-                "'LEH_EXECUTE_LAMBDA' set to 'True' but 'LEH_FUNCTION_NAME' not defined."
+                error
             )
     print(message)
     print(exception)
