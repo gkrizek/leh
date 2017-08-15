@@ -1,7 +1,14 @@
 leh
 ===
 
-|image0| |image1| |image2|
+.. image:: https://img.shields.io/pypi/v/leh.svg
+    :target: https://pypi.python.org/pypi/leh
+
+.. image:: https://img.shields.io/circleci/project/github/gkrizek/leh.svg
+    :target: https://circleci.com/gh/gkrizek/leh
+
+.. image:: https://img.shields.io/pypi/l/leh.svg
+    :target: https://opensource.org/licenses/MIT
 
 About
 -----
@@ -176,7 +183,3 @@ Execute a Lambda function with specific keys:
         AWSSecret="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
     )
-
-.. |image0| image:: https://img.shields.io/pypi/v/leh.svg
-.. |image1| image:: https://img.shields.io/circleci/project/github/gkrizek/leh.svg
-.. |image2| image:: https://img.shields.io/pypi/l/leh.svg
