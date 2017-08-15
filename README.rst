@@ -115,7 +115,7 @@ function asynchronously, so there is never a wait for a response.
 Environment Variables
 ^^^^^^^^^^^^^^^^^^^^^
 
-Although the ``Initialize()`` function usually completes in under 100
+Although the ``Initialize()`` function usually completes in under 500
 milliseconds, it's possible to not execute it and use environment
 variables instead. You can define the the same parameters of the
 ``Initialize()`` function using environment variables. The corresponding
