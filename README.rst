@@ -1,6 +1,15 @@
 leh
 ===
 
+Not Working
+===========
+
+Lambda doesn't allow overrides of the ``sys.excepthook`` function. So this won't work in it's current state.
+
+https://forums.aws.amazon.com/thread.jspa?threadID=261627
+
+
+
 .. image:: https://img.shields.io/pypi/v/leh.svg
     :target: https://pypi.python.org/pypi/leh
 
